@@ -1,0 +1,12 @@
+<script src='/socket.io/socket.io.js'></script>
+<script>
+  const socket = io();
+  console.log(socket);
+
+  socket.on('connect', (data) => {
+    socket.on('welcome', (msg) => {
+      console.log(msg);
+    });
+    socket.emit('message', { data: "CLIENT-SIDE: We're connected!"});
+  });
+</script>

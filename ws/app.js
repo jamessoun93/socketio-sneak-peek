@@ -21,6 +21,4 @@ wss.on('connection', (ws, req) => {
   });
 });
 
-server.listen(8000, () => {
-  console.log('Server Listening!');
-});
+server.listen(8000);
