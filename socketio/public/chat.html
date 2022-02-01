@@ -24,9 +24,25 @@
     <script>
       const socket = io();
 
+      const addNewMsg = (msg) => {
+        console.log('add');
+        const item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+
       socket.on('connect', () => {
         console.log(socket.id);
       });
+
+      socket.on('new user', (msg) => {
+        addNewMsg(msg);
+      })
+
+      socket.on('user left', (msg) => {
+        addNewMsg(msg);
+      })
 
       const messages = document.getElementById('messages');
       const form = document.getElementById('form');
@@ -41,10 +57,7 @@
       });
 
       socket.on('chat message', (msg) => {
-        const item = document.createElement('li');
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        addNewMsg(msg);
       });
     </script>
   </body>

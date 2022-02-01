@@ -7,18 +7,13 @@ const io = new Server(expressServer);
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', (socket) => {
-  console.log('new user connected');
+  io.emit('new user', 'new user just joined!');
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+  socket.on('disconnect', (reason) => {
+    io.emit('user left', 'user left...');
   });
 
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });
-
-  // socket.emit('messageFromServer', { data: 'Welcome, New User!' });
-  // socket.on('messageToServer', (dataFromClient) => {
-  //   console.log(dataFromClient);
-  // });
 });
